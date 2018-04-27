@@ -135,10 +135,24 @@ function newItemData(){
                     message: "How many would you like to order?"
                 }).then(function(answer){
                     stockQuantity = parseInt(answer.stockQuantity);
-                    console.log(productName + " " + departmentName + " " + price + " " + stockQuantity);
+                    newItemInsert(productName, departmentName,  price, stockQuantity);
                 })
             })
         })
+    });
+};
+
+function newItemInsert(product, department, price, quantity){
+    var query = "INSERT INTO products VALUES (item_id, '"
+    + product + "','" 
+    + department + "'," 
+    + price + ","
+    + quantity + ");";
+    console.log(query);
+    connection.query(query, function(error, results){
+        if(error) throw error;
+        console.log("product insterted! thank you");
+        end();
     });
 }
 
