@@ -1,27 +1,21 @@
 //https://upenn.bootcampcontent.com/upenn-bootcamp/UPENN201801FSF4-Class-Repository-FSF/blob/master/01-Class-Content/12-mysql/02-Homework/homework_instructions.md
 
 //global variables
-var mysql = require("mysql");
+
 var inquirer = require("inquirer");
 var table = require("console.table");
 var currentQuantity = 0;
 var currentItemId = 0;
-
+var connection = require("./connection.js")
 //connection data: Maybe secure in another location later
-var connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "",
-  database: "bamazon"
-});
+
 
 //displays the storefront when the program is run
 function storefront(){
     connection.query(
         "SELECT * FROM products;",
         function(error, results){
-            var x = "";
+            //var x = "";
             if(error) throw error;
             //console.log(results.length);
             /*for(var i = 0; i < results.length; i++){
@@ -134,9 +128,9 @@ function end(){
             storefront();
         } else {
             process.exit();
-        }
-    })
-}
+        };
+    });
+};
 
 
 connection.connect(function(err) {
