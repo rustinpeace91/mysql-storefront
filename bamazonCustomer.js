@@ -10,17 +10,13 @@ var connection = require("./connection.js")
 //connection data: Maybe secure in another location later
 
 
-//displays the storefront when the program is run
+//displays the storefront of items when the program is run
 function storefront(){
     connection.query(
         "SELECT * FROM products;",
         function(error, results){
-            //var x = "";
             if(error) throw error;
-            //console.log(results.length);
-            /*for(var i = 0; i < results.length; i++){
-                console.log(results[i].item_id + " " + results[i].product_name);
-            }*/
+            //using the console table package to display the items
             console.table(results);
             select();
         }
@@ -28,7 +24,6 @@ function storefront(){
 }
 
 //prompts the user for an item to buy 
-//TODO: make it so when the user purchases an item it depletes some of the inventory
 function select() {
     inquirer.prompt({
         name:"itemToBuy",   
@@ -56,6 +51,7 @@ function select() {
     });
 };
 
+//the confirmation function. displays the unit price of the item
 function confirm(product, price){
     inquirer.prompt({
         name:"yesOrNo",
@@ -73,6 +69,7 @@ function confirm(product, price){
     });
 };
 
+//prompts the user for the quanity of items they would like
 function howMany(product, price){
     inquirer.prompt({
         name: "howMany",
@@ -96,6 +93,7 @@ function howMany(product, price){
     })
 };
 
+//updates the database based on the purchase 
 function purchase(product, price, quantity){
     connection.query(
         "UPDATE products SET ? WHERE ?",[{
@@ -114,6 +112,7 @@ function purchase(product, price, quantity){
 
 };
 
+//the end menu. prompts the user
 function end(){
     inquirer.prompt({
         name: "endScreen",
@@ -132,7 +131,7 @@ function end(){
     });
 };
 
-
+//runs when the program stars
 connection.connect(function(err) {
     if (err) throw err;
     storefront();
