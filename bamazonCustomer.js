@@ -1,12 +1,13 @@
 //https://upenn.bootcampcontent.com/upenn-bootcamp/UPENN201801FSF4-Class-Repository-FSF/blob/master/01-Class-Content/12-mysql/02-Homework/homework_instructions.md
 
 //global variables
-
 var inquirer = require("inquirer");
 var table = require("console.table");
 var currentQuantity = 0;
 var currentItemId = 0;
-var connection = require("./connection.js")
+var connection = require("./connection.js");
+//var validator = require("./validator.js");
+
 //connection data: Maybe secure in another location later
 
 
@@ -31,23 +32,30 @@ function select() {
         message: "what is the ID number of the item you would like to buy"
     }).then(function(answer){
         currentItemId = answer.itemToBuy;
-        connection.query(
-            "SELECT * FROM products WHERE ?", [{
-                item_id: answer.itemToBuy
-            }],
-            function(error, results){
-
-                if(error) throw error;
-                var product = results[0].product_name;
-                var price = results[0].price;
-                currentQuantity = parseInt(results[0].stock_quantity);
-                if(parseInt(results[0].stock_quantity) <= 0){
-                    console.log("Sorry. Out of stock.");
-                    select();
+            connection.query(
+                "SELECT * FROM products WHERE ?", [{
+                    item_id: answer.itemToBuy
+                }],
+                function(error, results){
+                    if(error) throw error;
+                    var product = results[0].product_name;
+                    var price = results[0].price;
+                    currentQuantity = parseInt(results[0].stock_quantity);
+                    if(parseInt(results[0].stock_quantity) <= 0){
+                        console.log("Sorry. Out of stock.");
+                        select();
+                    }
+                    confirm(product, price);
                 }
-                confirm(product, price);
-            }
-        )
+            )
+        
+        //Validator function. Does not return anything other than undfined for now. 
+        /*if(validator(currentItemId)){
+        } else {
+            console.log("that item ID does not exist");
+            end();
+        }*/
+
     });
 };
 

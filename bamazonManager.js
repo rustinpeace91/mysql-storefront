@@ -1,4 +1,3 @@
-var mysql = require("mysql");
 var inquirer = require("inquirer");
 var table = require("console.table");
 var connection = require("./connection.js");
@@ -34,12 +33,7 @@ function storefront(){
     connection.query(
         "SELECT * FROM products;",
         function(error, results){
-            //var x = "";
             if(error) throw error;
-            //console.log(results.length);
-            /*for(var i = 0; i < results.length; i++){
-                console.log(results[i].item_id + " " + results[i].product_name);
-            }*/
             console.table(results);
             end();
         }
@@ -52,10 +46,6 @@ function lowInventory(){
         function(error, results){
             //var x = "";
             if(error) throw error;
-            //console.log(results.length);
-            /*for(var i = 0; i < results.length; i++){
-                console.log(results[i].item_id + " " + results[i].product_name);
-            }*/
             console.table(results);
             end();
         }
