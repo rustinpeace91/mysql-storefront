@@ -10,4 +10,4 @@ The customer file only allows the user to view the storefront and purchase items
 
 The manager file allows the user to view the storefront, view items with a stock of 5 or less, increase the inventory of a single item, or add a new item to the databse. 
 
-Currently there is nothing validating that the userID that is typed in exists in the database. I spent so much time developing the manager view that I forgot to code a method of validating that, but I will add that as soon as possible. 
+I tried to code a file that would validate the item_ID data to ensure that the item ID that the user typed in existed in the database by querying the database and setting a Count to 0 or 1, and then returning true or false based on that count. However no matter what I did, the function would always turn "undefined" after the query was run. For more details on this endevour. See the comments on the top of the "validator.js" file.  Eventually I had to stop and move on to the next homework because I was spending far too much time on it. 
